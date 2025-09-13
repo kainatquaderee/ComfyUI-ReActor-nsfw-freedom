@@ -10,7 +10,7 @@ from scripts.reactor_logger import logger
 MODEL_EXISTS = False
 
 def ensure_nsfw_model(nsfwdet_model_path):
-    """Download NSFW detection model if it doesn't exist"""
+    """
     global MODEL_EXISTS
     downloaded = 0
     nd_urls = [
@@ -28,6 +28,7 @@ def ensure_nsfw_model(nsfwdet_model_path):
         if os.path.exists(model_path):
             downloaded += 1
     MODEL_EXISTS = True if downloaded == 3 else False
+    """
     return MODEL_EXISTS
 
 SCORE = 0.96
@@ -35,6 +36,8 @@ SCORE = 0.96
 logging.getLogger("transformers").setLevel(logging.ERROR)
 
 def nsfw_image(img_data, model_path: str):
+    return False
+    """
     if not MODEL_EXISTS:
         logger.status("Ensuring NSFW detection model exists...")
         if not ensure_nsfw_model(model_path):
@@ -53,3 +56,4 @@ def nsfw_image(img_data, model_path: str):
             logger.status(f'NSFW content detected with score={result[0]["score"]}, skipping...')
             return True
         return False
+    """
